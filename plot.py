@@ -22,6 +22,9 @@ def generate_svg_plot(dictionary, min, max, liste_cord, width):
     # creation des valeurs en abscisses et en ordonnee avec les listes lx et ly
     x1 = np.array(lx)
     y1 = np.array(ly)
+    axes = plt.gca()
+    axes.xaxis.set_ticks_position('top')
+    axes.yaxis.set_ticks_position('right')
 
     plt.figure(figsize=(width, width))
 
