@@ -408,6 +408,8 @@ $(function() {
 			alert ("Please choose the maximum value the same as your Reference Point ");
 		} else if ((ref_point < val_max) && (ref_point > val_min)) {
 			alert ("Please choose the minimum value the same as your Reference Point ");
+		} else if (ref_point < val_min) {
+			alert ("Please choose the minimum value the same as your Reference Point ");
 		} else if (isThereUnderscore([name, unit], String(val_min), String(val_max))==false) {
 			alert("Please don't write an underscore ( _ ) in your values.\nBut you can put spaces");
 		}
