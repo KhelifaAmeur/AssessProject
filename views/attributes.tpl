@@ -41,6 +41,10 @@
 			<input type="text" class="form-control" id="att_unit_quanti" placeholder="Unit">
 		</div>
 		<div class="form-group">
+			<label for="att_ref_point_quanti">Reference Point:</label>
+			<input type="text" class="form-control" id="att_ref_point_quanti" placeholder="Value">
+		</div>
+		<div class="form-group">
 			<label for="att_value_min_quanti">Min value:</label>
 			<input type="text" class="form-control" id="att_value_min_quanti" placeholder="Value">
 		</div>
