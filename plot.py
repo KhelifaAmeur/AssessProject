@@ -27,7 +27,7 @@ def generate_svg_plot(dictionary, min, max, liste_cord, width):
 
     plt.figure(figsize=(width, width))
 
-    plt.axis([min, max, -1., 0.])
+    plt.axis([min, max, 0., 1.])
 
     plt.plot(x1, y1, 'ko', label="Original Data")
     x = np.linspace(min, max, 100)
