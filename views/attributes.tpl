@@ -381,6 +381,7 @@ $(function() {
 		var name = $('#att_name_quanti').val(),
 			unit = $('#att_unit_quanti').val(),
 			val_min = parseInt($('#att_value_min_quanti').val()),
+			ref_point = parseInt($('#att_ref_point_quanti').val()),
 			val_max = parseInt($('#att_value_max_quanti').val());
 
 		var method = "PE";
@@ -397,7 +398,7 @@ $(function() {
 		var mode = ($('input[name=mode]').is(':checked') ? "Reversed" : "Normal");
 		
 
-		if (!(name || unit || val_min || val_max) || isNaN(val_min) || isNaN(val_max)) {
+		if (!(name || unit || ref_point || val_min || val_max) || isNaN(ref_point) || isNaN(val_min) || isNaN(val_max)) {
 			alert('Please fill correctly all the fields');
 		} else if (isAttribute(name) && (edit_mode == false)) {
 			alert ("An attribute with the same name already exists");
