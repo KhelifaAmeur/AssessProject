@@ -407,7 +407,7 @@ $(function() {
 		} else if (ref_point > val_max) {
 			alert ("Please choose the maximum value the same as your Reference Point ");
 		} else if ((ref_point < val_max) && (ref_point > val_min)) {
-			alert ("Please choose the minimum value the same as your Reference Point ");
+			alert ("If you want to assess losses please choose the maximum value as the Reference point. If you want to assess gains please choose the minimum value as the Reference point.");
 		} else if (ref_point < val_min) {
 			alert ("Please choose the minimum value the same as your Reference Point ");
 		} else if (isThereUnderscore([name, unit], String(val_min), String(val_max))==false) {
