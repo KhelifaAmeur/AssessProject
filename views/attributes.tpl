@@ -64,7 +64,7 @@
 		<div class="checkbox">
 			<label><input name="mode" type="checkbox" id="att_mode_ref" placeholder="Mode"> Would you like to choose a reference point? (between Min and Max) onClick="momo"</label>
 		</div>
-		<script>
+		
 		function momo() {
 		<div class="form-group">
 			<label for="att_ref_point_quanti">Reference Point:</label>
