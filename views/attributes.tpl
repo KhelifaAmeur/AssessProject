@@ -172,9 +172,9 @@ $(function() {
 		window.scrollBy(0, 500);
 	});
 });
-$(function() {
+$(function1() {
 	///  ACTION FROM Reference point chackbox
-	$("#att_mode_ref").click(function () {
+	$("#att_mode_ref").click(function1 () {
 	<div class="form-group">
 			<label for="att_ref_point_quanti">Reference Point:</label>
 			<input type="text" class="form-control" id="att_ref_point_quanti" placeholder="Value">
