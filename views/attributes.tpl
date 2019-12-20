@@ -62,14 +62,14 @@
 			<label><input name="mode" type="checkbox" id="att_mode_quanti" placeholder="Mode"> The min value is preferred (decreasing utility function)</label>
 		</div>
 		<div class="checkbox">
-			<label><input name="mode" type="checkbox" id="att_mode_ref" placeholder="Mode"> Would you like to choose a reference point? (between Min and Max)</label>
+			<label><input name="mode" type="checkbox" id="att_mode_ref" placeholder="Mode"> Would you like to choose a reference point? (between Min and Max) onClick=momo</label>
 		</div>
-		$('#att_mode_ref').click() {
+		function momo() {
 		<div class="form-group">
 			<label for="att_ref_point_quanti">Reference Point:</label>
 			<input type="text" class="form-control" id="att_ref_point_quanti" placeholder="Value">
-		</div>
-		};
+		</div>;
+		}
 		
 		<button type="submit" class="btn btn-success" id="submit_quanti">Submit</button>
 	</div>
