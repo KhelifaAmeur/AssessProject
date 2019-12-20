@@ -64,19 +64,17 @@
 		<div class="checkbox">
 			<label><input name="mode" type="checkbox" id="att_mode_ref" placeholder="Mode"> Would you like to choose a reference point? (between Min and Max)</label>
 		</div>
-		('#att_mode_ref').prop('checked', (attribute_edit.mode=="Normal" ? false : true));
-		('#att_mode_ref').prop('checked', false);
-		if  (att_mode_ref== True) {
-			<div class="form-group">
-				<label for="att_ref_point_quanti">Reference Point:</label>
-				<input type="text" class="form-control" id="att_ref_point_quanti" placeholder="Value">
-			</div>
-		};
 		
-		
-
 		<button type="submit" class="btn btn-success" id="submit_quanti">Submit</button>
 	</div>
+	$('#att_mode_ref').prop('checked', (attribute_edit.mode=="Normal" ? false : true));
+	$('#att_mode_ref').prop('checked', false);
+	if  (att_mode_ref== True) {
+		<div class="form-group">
+			<label for="att_ref_point_quanti">Reference Point:</label>
+			<input type="text" class="form-control" id="att_ref_point_quanti" placeholder="Value">
+		</div>
+		};
 	
 	<!------------ FORM FOR A QUALITATIVE ATTRIBUTE ------------>
 	<div id="form_quali">
