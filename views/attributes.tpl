@@ -173,15 +173,6 @@ $(function() {
 	});
 });
 
-	///  ACTION FROM Reference point chackbox
-	$("#att_mode_ref").click(function () {
-	<div class="form-group">
-			<label for="att_ref_point_quanti">Reference Point:</label>
-			<input type="text" class="form-control" id="att_ref_point_quanti" placeholder="Value">
-	</div>
-		
-	});
-
 
 
 $(function() {
