@@ -119,7 +119,7 @@ function myFunction() {
     	<label for="att_value_max_quanti">Max value:</label>
 	<input type="text" class="form-control" id="att_value_max_quanti" placeholder="Value">;
   } 
-}
+};
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Fonctions pour ajouter/supprimer des zones de texte pour les valeurs intermédiaires //
