@@ -67,8 +67,8 @@
 		
 		<button type="submit" class="btn btn-success" id="submit_quanti">Submit</button>
 	</div>
-	$('#att_mode_ref').prop('checked', (attribute_edit.mode=="Normal" ? false : true));
-	$('#att_mode_ref').prop('checked', false);
+	$('#att_mode_ref').prop('checked', (attribute_edit.mode=="Normal" ? false : true))
+	$('#att_mode_ref').prop('checked', false)
 	if  (att_mode_ref== True) {
 		<div class="form-group">
 			<label for="att_ref_point_quanti">Reference Point:</label>
