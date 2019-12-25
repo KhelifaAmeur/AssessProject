@@ -113,13 +113,6 @@ $("#form_quanti").hide();
 $("#form_quali").hide();
 $('li.manage').addClass("active");
 
-function myFunction() {
-  var checkBox = document.getElementById("att_mode_ref");
-  if (checkBox.checked == true){
-    	<label for="att_value_max_quanti">Max value:</label>
-	<input type="text" class="form-control" id="att_value_max_quanti" placeholder="Value">;
-  } 
-};
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Fonctions pour ajouter/supprimer des zones de texte pour les valeurs intermédiaires //
@@ -179,7 +172,7 @@ $(function() {
 		$("#form_quali").fadeIn(500);
 		window.scrollBy(0, 500);
 	});
-
+});
 
 
 
