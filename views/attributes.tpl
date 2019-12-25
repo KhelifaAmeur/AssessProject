@@ -179,7 +179,7 @@ $(function() {
 		$("#form_quali").fadeIn(500);
 		window.scrollBy(0, 500);
 	});
-});
+
 
 
 
