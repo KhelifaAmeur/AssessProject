@@ -65,7 +65,7 @@
 			<label><input name="mode" type="checkbox" id="att_mode_ref" placeholder="Mode"> Would you like to choose a reference point? (between Min and Max)</label>
 		</div>
 		<div class="form-group">
-			<label for="att_ref_point_quanti">Min value:</label>
+			<label for="att_ref_point_quanti">Reference point:</label>
 			<input type="text" class="form-control" id="att_ref_point_quanti" placeholder="Value">
 		</div>
 		
