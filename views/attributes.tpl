@@ -66,7 +66,7 @@
 		</div>
 		<div class="form-group">
 			<label for="att_ref_point_quanti">Reference point:</label>
-			<input type="text" class="form-control" id="att_ref_point_quanti" placeholder="Value">
+			<input type="hidden" class="form-control" id="att_ref_point_quanti" placeholder="Value">
 		</div>
 		
 		<button type="submit" class="btn btn-success" id="submit_quanti">Submit</button>
