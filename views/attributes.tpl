@@ -367,6 +367,8 @@ $(function() {
 							$('#att_value_max_quanti').val(attribute_edit.val_max);
 							$('#att_method_quanti option[value='+attribute_edit.method+']').prop('selected', true);
 							$('#att_mode_ref').prop('checked', (attribute_edit.mode=="Normal" ? false : true));
+							$('#att_ref_point_quanti').val(attribute_edit.ref_point);
+							$('#att_mode_ref').click(sync);
 						} 
 						else if (attribute_edit.type == "Qualitative") {
 							update_method_button("Qualitative"); //update the active type of attribute
