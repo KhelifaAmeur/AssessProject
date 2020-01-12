@@ -22,56 +22,100 @@ def generate_svg_plot(dictionary, min, max, liste_cord, width):
     # creation des valeurs en abscisses et en ordonnee avec les listes lx et ly
     x1 = np.array(lx)
     y1 = np.array(ly)
-    axes = plt.gca()
-    
 
     plt.figure(figsize=(width, width))
-
     plt.axis([min, max, 0., 1.])
-
     plt.plot(x1, y1, 'ko', label="Original Data")
     x = np.linspace(min, max, 100)
-    for func in dictionary.keys():
-        if func == 'exp':
-            a = dictionary[func]['a']
-            b = dictionary[func]['b']
-            c = dictionary[func]['c']
-            plt.plot(x, funcexp(x, a, b, c), '#401539',
-                     label="Exp Fitted Curve")
 
-        elif func == 'quad':
-            a = dictionary[func]['a']
-            b = dictionary[func]['b']
-            c = dictionary[func]['c']
-            plt.plot(x, funcquad(x, a, b, c), '#458C8C',
-                     label="Quad Fitted Curve")
+    #translation suivant x des courbes a afficher en cas de valeurs negatives
+    xneg = np.linspace(0, max-min, 100)
 
-        elif func == 'pow':
-            a = dictionary[func]['a']
-            b = dictionary[func]['b']
-            c = dictionary[func]['c']
-            plt.plot(x, funcpuis(x, a, b, c), '#6DA63C',
-                     label="Pow Fitted Curve")
+    if min >= 0 :
+        for func in dictionary.keys():
+            if func == 'exp':
+                a = dictionary[func]['a']
+                b = dictionary[func]['b']
+                c = dictionary[func]['c']
+                plt.plot(x, funcexp(x, a, b, c), '#401539',
+                         label="Exp Fitted Curve")
 
-        elif func == 'log':
-            a = dictionary[func]['a']
-            b = dictionary[func]['b']
-            c = dictionary[func]['c']
-            d = dictionary[func]['d']
-            plt.plot(x, funclog(x, a, b, c, d),
-                     '#D9585A', label="Log Fitted Curve")
+            elif func == 'quad':
+                a = dictionary[func]['a']
+                b = dictionary[func]['b']
+                c = dictionary[func]['c']
+                plt.plot(x, funcquad(x, a, b, c), '#458C8C',
+                         label="Quad Fitted Curve")
 
-        elif func == 'lin':
-            a = dictionary[func]['a']
-            b = dictionary[func]['b']
-            plt.plot(x, funclin(x, a, b), '#D9B504', label="Lin Fitted Curve")
+            elif func == 'pow':
+                a = dictionary[func]['a']
+                b = dictionary[func]['b']
+                c = dictionary[func]['c']
+                plt.plot(x, funcpuis(x, a, b, c), '#6DA63C',
+                         label="Pow Fitted Curve")
 
-        elif func =='expo-power':
-            a = dictionary[func]['a']
-            b = dictionary[func]['b']
-            c = dictionary[func]['c']
-            plt.plot(x, funcexpopower(x, a, b, c),
-                     '#26C4EC', label="Expo-Power Fitted Curve")
+            elif func == 'log':
+                a = dictionary[func]['a']
+                b = dictionary[func]['b']
+                c = dictionary[func]['c']
+                d = dictionary[func]['d']
+                plt.plot(x, funclog(x, a, b, c, d),
+                         '#D9585A', label="Log Fitted Curve")
+
+            elif func == 'lin':
+                a = dictionary[func]['a']
+                b = dictionary[func]['b']
+                plt.plot(x, funclin(x, a, b), '#D9B504', label="Lin Fitted Curve")
+
+            elif func =='expo-power':
+                a = dictionary[func]['a']
+                b = dictionary[func]['b']
+                c = dictionary[func]['c']
+                plt.plot(x, funcexpopower(x, a, b, c),
+                         '#26C4EC', label="Expo-Power Fitted Curve")
+
+    else: 
+        for func in dictionary.keys():
+            if func == 'exp':
+                a = dictionary[func]['a']
+                b = dictionary[func]['b']
+                c = dictionary[func]['c']
+                plt.plot(x, funcexp(xneg, a, b, c), '#401539',
+                         label="Exp Fitted Curve")
+
+            elif func == 'quad':
+                a = dictionary[func]['a']
+                b = dictionary[func]['b']
+                c = dictionary[func]['c']
+                plt.plot(x, funcquad(xneg, a, b, c), '#458C8C',
+                         label="Quad Fitted Curve")
+
+            elif func == 'pow':
+                a = dictionary[func]['a']
+                b = dictionary[func]['b']
+                c = dictionary[func]['c']
+                plt.plot(x, funcpuis(xneg, a, b, c), '#6DA63C',
+                         label="Pow Fitted Curve")
+
+            elif func == 'log':
+                a = dictionary[func]['a']
+                b = dictionary[func]['b']
+                c = dictionary[func]['c']
+                d = dictionary[func]['d']
+                plt.plot(x, funclog(xneg, a, b, c, d),
+                         '#D9585A', label="Log Fitted Curve")
+
+            elif func == 'lin':
+                a = dictionary[func]['a']
+                b = dictionary[func]['b']
+                plt.plot(x, funclin(xneg, a, b), '#D9B504', label="Lin Fitted Curve")
+
+            elif func =='expo-power':
+                a = dictionary[func]['a']
+                b = dictionary[func]['b']
+                c = dictionary[func]['c']
+                plt.plot(x, funcexpopower(xneg, a, b, c),
+                         '#26C4EC', label="Expo-Power Fitted Curve")
 
 
     plt.savefig(imgdata, format='svg')

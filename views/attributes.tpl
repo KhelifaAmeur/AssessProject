@@ -129,7 +129,6 @@ $("#form_quanti").hide();
 $("#form_quali").hide();
 $('li.manage').addClass("active");
 
-
 /////////////////////////////////////////////////////////////////////////////////////////
 // Fonctions pour ajouter/supprimer des zones de texte pour les valeurs intermédiaires //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -189,7 +188,6 @@ $(function() {
 		window.scrollBy(0, 500);
 	});
 });
-
 
 
 $(function() {

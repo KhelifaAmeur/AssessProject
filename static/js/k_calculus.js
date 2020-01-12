@@ -119,17 +119,20 @@ $(function() {
 /// Initializing a MULTIPLICATIVE environment
 function create_multiplicative_k() {
 	var assess_session = JSON.parse(localStorage.getItem("assess_session"));
+	
+	//first we delete the array of k for multiplicative and the GK
 	assess_session.k_calculus[0].k=[];
 	assess_session.k_calculus[0].GK=null;
-	var counter=1;
 	
-	//first we delete the array of k for multiplicative
+	var counter=1;
+	//then we initialize the environment with only the checked attributes
 	for (var i=0; i < assess_session.attributes.length; i++){
 		if(assess_session.attributes[i].checked) {
 			assess_session.k_calculus[0].k.push({
 				"ID":counter, 
 				"ID_attribute":i, 
 				"attribute":assess_session.attributes[i].name, 
+				"type":assess_session.attributes[i].type,
 				"value":null
 			});
 			counter++;
@@ -239,7 +242,7 @@ function update_k_list(number){
 				$('#k_answer_'+_i).click(function(){
 					$('#k_answer_'+_i).hide();
 					if(number==0) {//multiplicative
-						k_answer(_i, 0);
+						k_multiplicative_answer(_i);
 					} else if(number==1){ //multilinear
 						if (_i == ma_list.length - 1) {
 							k_multilinear_calculate_last_one(_i);
@@ -315,7 +318,7 @@ function update_active_button_multilinear(){
 	}
 }
 
-//// Function to test if an object (obj) appears in the list (list_to_test) 
+/// Function to test if an object (obj) appears in the list (list_to_test)
 function isInList(obj, list_to_test) {
 	if (list_to_test.indexOf(obj) != -1){
 		return true;
@@ -355,10 +358,10 @@ function k_multilinear_answer(i){
 				if(!assess_session.attributes[l].checked){continue} //if not checked we don't put it
 				
 				var attrib = assess_session.attributes[l],
-					attrib_favorite = (attrib.mode=="normal"? attrib.val_max : attrib.val_min),
-					attrib_other = (attrib.mode=="normal"? attrib.val_min : attrib.val_max);
+					attrib_favorite = (attrib.mode=="Normal"? attrib.val_max : attrib.val_min),
+					attrib_other = (attrib.mode=="Normal"? attrib.val_min : attrib.val_max);
 					
-				if (isInList(l, ID_att)) { // Si l'attibut étudié fait partie de ceux que l'on calcule pour le cas MULTILINEAIRE 
+				if (isInList(l, ID_att)) { // Si l'attribut étudié fait partie de ceux que l'on calcule pour le cas MULTILINEAIRE 
 					gain_certain += String(attrib.name).toUpperCase() + ' : ' + attrib_favorite + ' ' + attrib.unit + (l==len-1?'':'<br/>');
 				} else {
 					gain_certain += String(attrib.name).toLowerCase() + ' : ' + attrib_other + ' ' + attrib.unit + (l==len-1?'':'<br/>');
@@ -386,7 +389,7 @@ function k_multilinear_answer(i){
 			arbre_gauche.update();
 			
 			
-			$("#k_value_"+i).append('<br/><br/><br/><br/><div class=choice style="text-align: center;"><p>Which option do you prefer?</p><button type="button" class="btn btn-default gain">A</button><button type="button" class="btn btn-default lottery">B</button></div><br/><br/><div ></div>');
+			$("#k_value_"+i).append('<br/><br/><br/><br/><div class=choice style="text-align: center;"><p>Which option do you prefer?</p><button type="button" class="btn btn-default gain">Certain gain</button><button type="button" class="btn btn-default lottery">Lottery</button></div><br/><br/><div ></div>');
 			//on affiche l'arbre avec un petit effet !
 
 			$("#k_value_"+i).show("fast");
@@ -414,7 +417,7 @@ function k_multilinear_answer(i){
 					 <= <input type="text" class="form-control" id="final_proba" placeholder="Probability" value="'+val+'" style="width: 100px; display: inline-block"> <= '+ max_interval +'</p><button type="button" class="btn btn-default final_validation">Validate</button></div>'
 				);
 
-				// when the user validate
+				// when the user validates
 				$('.final_validation').click(function(){
 					//here we are in multilinearity we must calculate K with dependencies
 					var final_proba = parseFloat($('#final_proba').val());
@@ -439,7 +442,15 @@ function k_multilinear_answer(i){
 					}
 					final_k=Math.round(final_k*1000)/1000;
 
-					assess_session.k_calculus[1].k[i].value=final_k; //for multilinear it's 1
+					assess_session.k_calculus[1].k[i].value=final_k; // We put the k value for the MULTILINEAR
+					
+					if (i <assess_session.k_calculus[0].k.length) { // Because it's the same question
+						if (assess_session.k_calculus[0].k[i].value == null){ // (if you have not answered it yet)
+							assess_session.k_calculus[0].k[i].value=final_k; // We put the k value for the MULTIPLICATIVE as well
+						}
+					};
+					
+					
 					// backup local
 					localStorage.setItem("assess_session", JSON.stringify(assess_session));
 					// we reload the list
@@ -502,11 +513,12 @@ function k_multilinear_calculate_last_one(i){
 }
 
 //// Définition de la fonction qui va calculer K en MULTIPLICATIF 
-function k_answer(i, type) {
+function k_multiplicative_answer(i) {
 	 	var assess_session = JSON.parse(localStorage.getItem("assess_session")),
 			method = 'PE',
 			settings = assess_session.settings,
-			mon_k = assess_session.k_calculus[type].k[i],
+			mon_k = assess_session.k_calculus[0].k[i],
+			type = mon_k.type,
 			name = mon_k.attribute;
 		
 		for (var j = 0; j < assess_session.attributes.length; j++) {
@@ -543,12 +555,12 @@ function k_answer(i, type) {
 
 				// VARIABLES
 				var gain_certain = gain_haut = gain_bas = '',
-					len = assess_session.k_calculus[type].k.length; // nombre d'attributs avec lesquels on compute le K
+					len = assess_session.k_calculus[0].k.length; // nombre d'attributs avec lesquels on compute le K
 
 				for (var l=0; l < len; l++) {
-					var attrib = assess_session.attributes[assess_session.k_calculus[type].k[l].ID_attribute]
-						attrib_favorite = (attrib.mode=="normal"? attrib.val_max : attrib.val_min),
-						attrib_other = (attrib.mode=="normal"? attrib.val_min : attrib.val_max);
+					var attrib = assess_session.attributes[assess_session.k_calculus[0].k[l].ID_attribute]
+						attrib_favorite = (attrib.mode=="Normal"? attrib.val_max : attrib.val_min),
+						attrib_other = (attrib.mode=="Normal"? attrib.val_min : attrib.val_max);
 						
 					if (attrib.name == name) {
 						gain_certain += String(attrib.name).toUpperCase() + ' : ' + attrib_favorite + ' ' + attrib.unit + (l==len-1?'':'<br/>');
@@ -581,7 +593,7 @@ function k_answer(i, type) {
 				arbre_gauche.display();
 				arbre_gauche.update();
 
-				$("#k_value_"+i).append('<br/><br/><br/><br/><div class=choice style="text-align: center;"><p>Which option do you prefer?</p><button type="button" class="btn btn-default gain">A</button><button type="button" class="btn btn-default lottery">B</button></div><br/><br/><div ></div>');
+				$("#k_value_"+i).append('<br/><br/><br/><br/><div class=choice style="text-align: center;"><p>Which option do you prefer?</p><button type="button" class="btn btn-default gain">Certain gain</button><button type="button" class="btn btn-default lottery">Lottery</button></div><br/><br/><div ></div>');
 				//on affiche l'arbre avec un petit effet !
 
 				$("#k_value_"+i).show("fast");
@@ -610,19 +622,23 @@ function k_answer(i, type) {
 						 <= <input type="text" class="form-control" id="final_proba" placeholder="Probability" value="'+val+'" style="width: 100px; display: inline-block"> <= '+ max_interval +'</p><button type="button" class="btn btn-default final_validation">Validate</button></div>'
 					);
 
-					// when the user validate
+					// when the user validates
 					$('.final_validation').click(function(){
 						var final_proba = parseFloat($('#final_proba').val());
 
 						if (final_proba <= 1 && final_proba >= 0) {
 
 							// we save it
-							assess_session.k_calculus[type].k[i].value = final_proba;
+							assess_session.k_calculus[0].k[i].value = final_proba; // We put the k value for the MULTIPLICATIVE first
+							
+							if (assess_session.k_calculus[1].k[i].value == null){ // (if you have not answered it yet)
+								assess_session.k_calculus[1].k[i].value = final_proba; // We put the k value for the MULTILINEAR as well
+							}
 							// backup local
 							localStorage.setItem("assess_session", JSON.stringify(assess_session));
 							// we reload the list
 							$("#k_value_" + i).hide("fast", function () {
-								update_k_list(type);
+								update_k_list(0);
 								show_list();
 							});
 
@@ -664,8 +680,8 @@ function ki_calculated() {
 		};
 	}
 
-	if (kiNumber != kiNumberCalculated) {
-		if (get_Active_Method() == 0) {
+	if (kiNumber != kiNumberCalculated) { // If the user hasn't calculated all k_i values yet
+		if (get_Active_Method() == 0) { //if we're working with multiplicative
 			$("#calculatek_box_multiplicative").fadeIn("fast");
 			$("#calculatek_box_multilinear").fadeOut("fast");
 		}
@@ -708,8 +724,7 @@ function ki_calculated() {
 
 $(function(){
 	$("#button_calculate_k").click(function() {
-		if (get_Active_Method() == 0){//multiplicative
-
+		if (get_Active_Method() == 0){
 			K_Calculate_Multiplicative();
 		}
 	});
@@ -781,8 +796,9 @@ function K_Calculate_Multiplicative() {
 //###########   Choose utility function corresponding to attribute     ##################
 //#######################################################################################
 
-var k_utility_multilinear=[];
-var k_utility_multiliplicative=[];
+var k_utility_multilinear=[],
+	k_utility_multiplicative=[];
+
 $(function(){
 	$("#button_generate_list").click(function() {
 			list();
@@ -791,65 +807,52 @@ $(function(){
 });
 
 
-function list()
-{
+function list(){
 	var assess_session = JSON.parse(localStorage.getItem("assess_session"));
 
-	var listk = assess_session.k_calculus[get_Active_Method()].k;
-
 	k_utility_multilinear=[];
-	k_utility_multiliplicative=[];
+	k_utility_multiplicative=[];
 
 	//list of K with corresponding attribute:
 
-	var maList=[];
-	var type=get_Active_Method();
-	if(type==0)
-	{
-		maList=listk;
-		for(var i=0; i< listk.length; i++) {
-			k_utility_multiliplicative.push(null);
-		}
-	}
-	else {
-		for (var i = 0; i < listk.length; i++) {
-			if (listk[i].ID_attribute.length == 1) //if we have a k with jsute 1 indice
-			{
-				maList.push(listk[i]);
-				k_utility_multilinear.push(null);
-			}
-		}
+	var maList=assess_session.k_calculus[get_Active_Method()].k;
+	
+	for(var i=0; i<assess_session.k_calculus[0].k.length; i++) {
+		k_utility_multiplicative.push(null);
+		k_utility_multilinear.push(null);
 	}
 
-
+	
 	$('#table_attributes').html("");
 	// We fill the table
 	for (var i=0; i < maList.length; i++){
 
-		var monAttribut=assess_session.attributes[maList[i].ID_attribute];
-		var text = '<tr><td>K' + maList[i].ID + '</td>';
-		text+='<td>'+ monAttribut.name + '</td>';
-		text+='<td id="charts_'+i+'"></td>';
-		text+='<td id="functions_'+i+'"></td>';
-		text+='</tr>';
+		var monAttribut=assess_session.attributes[maList[i].ID_attribute],
+			text_table = '<tr>'+
+						'<td>K' + maList[i].ID + '</td>'+
+						'<td>'+ monAttribut.name + '</td>'+
+						'<td id="charts_'+i+'"></td>'+
+						'<td id="functions_'+i+'"></td>'+
+						'</tr>';
 
-		$('#table_attributes').append(text);
+		$('#table_attributes').append(text_table);
 
 		(function(_i) {
-			var json_2_send = {"type": "calc_util", "points":[]};
-			var points = monAttribut.questionnaire.points.slice();
-			var mode = monAttribut.mode;
-			var val_max=monAttribut.val_max;
-			var val_min=monAttribut.val_min;
+			var json_2_send = {"type": "calc_util", "points":[]},
+				val_max=monAttribut.val_max,
+				val_min=monAttribut.val_min,
+				mode = monAttribut.mode,
+				points_dict = monAttribut.questionnaire.points,
+				points=[];
+
+			for (key in points_dict) {
+				points.push([parseFloat(key), parseFloat(points_dict[key])]);
+			};
+			
 			if (points.length > 0 && monAttribut.checked) {
-				if (mode=="normal") {
-					points.push([val_max, 1]);
-					points.push([val_min, 0]);
-				}
-				else {
-					points.push([val_max, 0]);
-					points.push([val_min, 1]);
-				}
+				points.push([val_min, (mode == "Normal" ? 0 : 1)]);
+				points.push([val_max, (mode == "Normal" ? 1 : 0)]);
+				
 				json_2_send["points"] = points;
 				$.post('ajax', JSON.stringify(json_2_send), function (data) {
 					$.post('ajax', JSON.stringify({
@@ -869,75 +872,60 @@ function list()
 								functions= '<label style="color:#401539"><input type="radio" name="radio_'+_i+'" id="checkbox_'+_i+'_exp"> Exponential (' + Math.round(data[key]['r2'] * 100) / 100 + ')</label><br/>';
 								$('#functions_' + _i).append(functions);
 								data[key]['type']='exp';
-								(function(_data){$('#checkbox_'+_i+'_exp').click(function(){update_utility(_i, "exp", _data)});})(data[key]);
+								(function(_data){$('#checkbox_'+_i+'_exp').click(function(){update_utility(_i, _data)});})(data[key]);
 
 							}
 							else if (key == 'log'){
 								functions='<label style="color:#D9585A"><input type="radio" name="radio_'+_i+'" id="checkbox_'+_i+'_log"> Logarithmic (' + Math.round(data[key]['r2'] * 100) / 100 + ')</label><br/>';
 								$('#functions_' + _i).append(functions);
 								data[key]['type']='log';
-								(function(_data){$('#checkbox_'+_i+'_log').click(function(){update_utility(_i, "log", _data)});})(data[key]);
+								(function(_data){$('#checkbox_'+_i+'_log').click(function(){update_utility(_i, _data)});})(data[key]);
 							}
 							else if (key == 'pow'){
 								functions='<label style="color:#6DA63C"><input type="radio" name="radio_'+_i+'" id="checkbox_'+_i+'_pow"> Power (' + Math.round(data[key]['r2'] * 100) / 100 + ')</label><br/>';
 								$('#functions_' + _i).append(functions);
 								data[key]['type']='pow';
-								(function(_data){$('#checkbox_'+_i+'_pow').click(function(){update_utility(_i, "pow", _data)});})(data[key]);
+								(function(_data){$('#checkbox_'+_i+'_pow').click(function(){update_utility(_i, _data)});})(data[key]);
 							}
 							else if (key == 'quad'){
 								functions='<label style="color:#458C8C"><input type="radio" name="radio_'+_i+'" id="checkbox_'+_i+'_quad"> Quadratic (' + Math.round(data[key]['r2'] * 100) / 100 + ')</label><br/>';
 								$('#functions_' + _i).append(functions);
 								data[key]['type']='quad';
-								(function(_data){$('#checkbox_'+_i+'_quad').click(function(){update_utility(_i, "quad", _data)});})(data[key]);
+								(function(_data){$('#checkbox_'+_i+'_quad').click(function(){update_utility(_i, _data)});})(data[key]);
 							}
 							else if (key == 'lin'){
 								functions='<label style="color:#D9B504"><input type="radio" name="radio_'+_i+'" id="checkbox_'+_i+'_lin"> Linear (' + Math.round(data[key]['r2'] * 100) / 100 + ')</label><br/>';
 								$('#functions_' + _i).append(functions);
 								data[key]['type']='lin';
-								(function(_data){$('#checkbox_'+_i+'_lin').click(function(){update_utility(_i, "lin", _data)});})(data[key]);
+								(function(_data){$('#checkbox_'+_i+'_lin').click(function(){update_utility(_i, _data)});})(data[key]);
 							}
 							else if (key == 'expo-power'){
 								functions='<label style="color:#26C4EC"><input type="radio" name="radio_'+_i+'" id="checkbox_'+_i+'_expo-power"> Expo-Power (' + Math.round(data[key]['r2'] * 100) / 100 + ')</label><br/>';
 								$('#functions_' + _i).append(functions);
 								data[key]['type']='expo-power';
-								(function(_data){$('#checkbox_'+_i+'_expo-power').click(function(){update_utility(_i, "expo-power", _data)});})(data[key]);
+								(function(_data){$('#checkbox_'+_i+'_expo-power').click(function(){update_utility(_i, _data)});})(data[key]);
 							}
-
 						}
-
 					})
 				});
-			}
-			else
-			{
+			} else {
 				if(points.length == 0 && monAttribut.checked)
 					$('#charts_' + _i).append("Please assess a utility function for this attribute");
 				else if(!monAttribut.checked)
 					$('#charts_' + _i).append("The attribute is inactive");
-
 			}
 		})(i);
-
-
-
 	}
 }
 
 
 
-function update_utility(i, type, data)
-{
-
-	if(get_Active_Method()==0)//multiplicative
-	{
-		k_utility_multiliplicative[i]=data;
-	}
-	else
-	{
+function update_utility(i, data){
+	if(get_Active_Method()==0){  //multiplicative
+		k_utility_multiplicative[i]=data;
+	} else {
 		k_utility_multilinear[i]=data;
 	}
-
-
 }
 
 function addTextForm(div, copie, excel, latex) {
@@ -951,13 +939,14 @@ function addTextForm(div, copie, excel, latex) {
 	var copy_button_latex = $('<button class="btn functions_text_form" id= "btn_latex" data-clipboard-text="' + latex + '" title="Click to copy me.">Copy to clipboard (LaTeX format)</button>');
 
 	div.html('')
-	div.append("<div><pre>"+copie+"</pre></div>")
+	div.append("<div><pre>"+copie+"</pre></div>"); // we write the formula. AT THIS POINT, THE TEXT IS UGLY, LET'S TRY TO WRITE IT BETTER
+	
 	div.append(copy_button_dpl);
 	div.append("<br /><br /><br /><br />");
-	div.append("<div><pre>"+excel+"</pre></div>")
+	//div.append("<div><pre>"+excel+"</pre></div>")
 	div.append(copy_button_excel);
 	div.append("<br /><br /><br /><br />");
-	div.append("<div><pre>"+latex+"</pre></div>")
+	// div.append("<div><pre>"+latex+"</pre></div>")
 	div.append(copy_button_latex);
 
 
@@ -992,9 +981,9 @@ $(function(){
 		var assess_session = JSON.parse(localStorage.getItem("assess_session"));
 		if(get_Active_Method()==0)//multiplicative
 		{
-			if(k_utility_multiliplicative.length==0)
+			if(k_utility_multiplicative.length==0)
 			{
-				alert("You need to choose a utility function for all your attribute in the list below");
+				alert("You need to choose a utility function for all your attributes in the list above");
 				return;
 			}
 			if(assess_session.k_calculus[get_Active_Method()].GK==null){
@@ -1002,21 +991,23 @@ $(function(){
 				return;
 			}
 
-			for(var i=0; i<k_utility_multiliplicative.length; i++)
+			for(var i=0; i<k_utility_multiplicative.length; i++)
 			{
-				if(k_utility_multiliplicative[i]==null)
+				if(k_utility_multiplicative[i]==null)
 				{
-					alert("You need to choose a utility function for all your attribute in the list below");
+					alert("You need to choose a utility function for all your attributes in the list above");
 					return;
 				}
 			}
 
-			//then we pass here so we can send the ajax request
+			//then we go here so we can send the ajax request
 			var mesK=assess_session.k_calculus[get_Active_Method()].k.slice();
 			mesK.push({value:assess_session.k_calculus[get_Active_Method()].GK});
-			var requete={"type": "utility_calculus_multiplicative", "k":mesK, "utility":k_utility_multiliplicative};
+			var requete={"type": "utility_calculus_multiplicative", "k":mesK, "utility":k_utility_multiplicative};
+			console.log(requete);
 
 			$.post('ajax', JSON.stringify(requete), function (data) {
+				console.log(data);
 
 				addTextForm($('#utility_function'), data.U, data.Uexcel, data.Ulatex);
 				//alert(JSON.stringify(data));
@@ -1028,9 +1019,12 @@ $(function(){
 			});
 
 		}
-		else {
+		
+		
+		
+		else { // multilinear
 			if (k_utility_multilinear.length == 0) {
-				alert("You need to choose a utility function for all your attribute in the list below");
+				alert("You need to choose a utility function for all your attributes in the list above");
 				return;
 			}
 
@@ -1039,14 +1033,16 @@ $(function(){
 			{
 				if(k_utility_multilinear[i]==null)
 				{
-					alert("You need to choose a utility function for all your attribute in the list below");
+					alert("You need to choose a utility function for all your attributes in the list above");
 					return;
 				}
 			}
 
 			var requete={"type": "utility_calculus_multilinear", "k":assess_session.k_calculus[get_Active_Method()].k, "utility":k_utility_multilinear};
 			$.post('ajax', JSON.stringify(requete), function (data) {
-				$("#utility_function").html('<div ><pre>'+data.U+'</pre></div>')
+				console.log(data);
+				
+				addTextForm($('#utility_function'), data.U, data.Uexcel, data.Ulatex);
 				//alert(JSON.stringify(data));
 				assess_session.k_calculus[get_Active_Method()].GU=data;
 				localStorage.setItem("assess_session", JSON.stringify(assess_session));
@@ -1072,7 +1068,7 @@ function GK_calculated() {
 		if(get_Active_Method()==1)
 			k_utility_multilinear=assess_session.k_calculus[1].GU.utilities;
 		else if(get_Active_Method()==0)
-			k_utility_multiliplicative=assess_session.k_calculus[0].GU.utilities;
+			k_utility_multiplicative=assess_session.k_calculus[0].GU.utilities;
 
 		$('#table_attributes').html("");
 
@@ -1087,7 +1083,7 @@ function GK_calculated() {
 		}
 		else {
 			for (var i = 0; i < listk.length; i++) {
-				if (listk[i].ID_attribute.length == 1) //if we have a k with jsute 1 indice
+				if (listk[i].ID_attribute.length == 1) //if we have a k with only 1 index
 				{
 					maList.push(listk[i]);
 				}

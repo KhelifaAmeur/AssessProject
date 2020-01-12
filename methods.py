@@ -36,7 +36,7 @@ def PE(min_interval, max_interval, p, choix, mode):
 # sachant que p1 va etre egale soit a 0.38 soit a 0.13
 def LE(min_interval, max_interval, p, choix, mode):
     #min_interval= 0; p = 0.47; max_interval = 0.5;
-    if mode == 'reversed':
+    if mode == 'Reversed':
         choix = (choix + 1) % 2
     liste = [min_interval, max_interval]  # p = probabilite qui s affiche
     # choix = 0 correspond a la lotterie de gauche (celle dont la probabilite
@@ -68,9 +68,9 @@ def LE(min_interval, max_interval, p, choix, mode):
 
 
 def CE(valeurmin, valeurmax, gain, choix, mode):
-    if mode == 'reversed':
+    if mode == 'Reversed':
         choix = (choix + 1) % 2
-    Liste = [valeurmin, valeurmax]
+    liste = [valeurmin, valeurmax]
     # choix = 1 correspond a l equivalent certain (comme pour la PE)
     if choix == 1:
         valeurmax = gain
