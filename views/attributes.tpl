@@ -63,7 +63,7 @@
 			<label><input name="mode" type="checkbox" id="att_mode_quanti" placeholder="Mode"> The min value is preferred (decreasing utility function)</label>
 		</div>
 		<div class="checkbox">
-			<label><input name="mode" type="checkbox" id="att_mode_ref" placeholder="Mode"> Would you like to choose a reference point? (between Min and Max)</label>
+			<label><input name="ref_point" type="checkbox" id="att_mode_ref" placeholder="Mode"> Would you like to choose a reference point? (between Min and Max)</label>
 		</div>
 		<div class="form-group hidden" id="ref_point_group">
 			<label for="att_ref_point_quanti">Reference point:</label>
@@ -420,6 +420,7 @@ $(function() {
 		}
 
 		var mode = ($('input[name=mode]').is(':checked') ? "Reversed" : "Normal");
+		console.log(mode);
 		
 
 		if (!(name || unit || ref_point || val_min || val_max) || isNaN(ref_point) || isNaN(val_min) || isNaN(val_max)) {
