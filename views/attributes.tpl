@@ -402,6 +402,9 @@ $(function() {
 			val_min = parseInt($('#att_value_min_quanti').val()),
 			ref_point = parseInt($('#att_ref_point_quanti').val()),
 			val_max = parseInt($('#att_value_max_quanti').val());
+		if (!ref_point) {
+			ref_point = val_min;
+		}
 
 		var method = "PE";
 		if ($("select option:selected").text() == "Probability Equivalence") {
@@ -425,8 +428,8 @@ $(function() {
 			alert ("Minimum value must be inferior to maximum value");
 		} else if (ref_point > val_max) {
 			alert ("Please choose the maximum value the same as your Reference Point ");
-		} else if ((ref_point < val_max) && (ref_point > val_min)) {
-			alert ("If you want to assess losses please choose the maximum value as the Reference point. If you want to assess gains please choose the minimum value as the Reference point.");
+		//} else if ((ref_point < val_max) && (ref_point > val_min)) {
+		//	alert ("If you want to assess losses please choose the maximum value as the Reference point. If you want to assess gains please choose the minimum value as the Reference point.");
 		} else if (ref_point < val_min) {
 			alert ("Please choose the minimum value the same as your Reference Point ");
 		} else if (isThereUnderscore([name, unit], String(val_min), String(val_max))==false) {
@@ -446,6 +449,7 @@ $(function() {
 						String(parseFloat(val_min)+.75*(parseFloat(val_max)-parseFloat(val_min)))
 					],
 					'val_max': val_max,
+					'ref_point': ref_point,
 					'method': method,
 					'mode': mode,
 					'completed': 'False',
@@ -469,6 +473,7 @@ $(function() {
 							String(parseFloat(val_min)+.75*(parseFloat(val_max)-parseFloat(val_min)))
 						],
 						'val_max': val_max,
+						'ref_point': ref_point,
 						'method': method,
 						'mode': mode,
 						'completed': 'False',

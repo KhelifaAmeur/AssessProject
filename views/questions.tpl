@@ -25,7 +25,7 @@
 	<h2>Select the regression function you want to use</h2>
 </div>
 
-<div id="main_graph" class="col-lg-5"></div>
+<div id="main_graph" class="col-lg-10"></div>
 <div id="functions" class="col-lg-7"></div>
 
 %include('header_end.tpl')
@@ -739,8 +739,10 @@
 				}
 			}
 
+			console.log('assess_session.attributes[indice]', assess_session.attributes[indice]);
 			var val_min = assess_session.attributes[indice].val_min,
 				val_max = assess_session.attributes[indice].val_max,
+				ref_point = assess_session.attributes[indice].ref_point,
 				mode = assess_session.attributes[indice].mode,
 				points_dict = assess_session.attributes[indice].questionnaire.points,
 				points=[];
@@ -896,7 +898,7 @@
 			}
 
 			function addGraph(i, data, min, max) {
-				console.log("addgraph");
+				console.log("addgraph", i, data, min, max);
 				$.post('ajax', JSON.stringify({
 					"type": "svg",
 					"data": data[i],
@@ -932,7 +934,10 @@
 				$('.radio_choice').on('click', function() {
 					$('#main_graph').show().empty();
 					$('#functions').show().empty();
-					addGraph(Number(this.value), data['data'], val_min, val_max);
+					if (ref_point > val_min) {
+						addGraph(Number(this.value), data['data'], val_min, ref_point);
+					}
+					addGraph(Number(this.value), data['data'], ref_point, val_max);
 					addFunctions(Number(this.value), data['data']);
 				});
 			});
