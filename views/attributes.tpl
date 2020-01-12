@@ -419,8 +419,16 @@ $(function() {
 
 		var mode = ($('input[name=mode]').is(':checked') ? "Reversed" : "Normal");
 		console.log(mode);
-		
 
+		function calcMed(val_min, val_max) {
+			val_med = []
+			n = 4
+			for (var i = 1; i < n; i++) {
+				val_med.push(val_min + (i / n) * (val_max - val_min))
+			}
+			return val_med;
+		}
+		
 		if (!(name || unit || ref_point || val_min || val_max) || isNaN(ref_point) || isNaN(val_min) || isNaN(val_max)) {
 			alert('Please fill correctly all the fields');
 		} else if (isAttribute(name) && (edit_mode == false)) {
@@ -439,16 +447,12 @@ $(function() {
 		
 		else {
 			if (edit_mode==false) {
-				assess_session.attributes.push({
+				var attribute = {
 					"type": "Quantitative",
 					"name": name,
 					'unit': unit,
 					'val_min': val_min,
-					'val_med': [
-						String(parseFloat(val_min)+.25*(parseFloat(val_max)-parseFloat(val_min))),
-						String(parseFloat(val_min)+.50*(parseFloat(val_max)-parseFloat(val_min))), //yes, it's (val_max+val_min)/2, but it looks better ^^
-						String(parseFloat(val_min)+.75*(parseFloat(val_max)-parseFloat(val_min)))
-					],
+					'val_med': calcMed(val_min, ref_point),
 					'val_max': val_max,
 					'ref_point': ref_point,
 					'method': method,
@@ -460,19 +464,19 @@ $(function() {
 						'points': {},
 						'utility': {}
 					}
-				});
+				};
+				if (ref_point != val_max) {
+					attribute.val_med_losses = calcMed(ref_point, val_max);
+				}
+				assess_session.attributes.push(attribute);
 			} else {
 				if (confirm("Are you sure you want to edit the attribute? All assessements will be deleted") == true) {
-					assess_session.attributes[edited_attribute]={
+					var attribute = {
 						"type": "Quantitative",
 						"name": name,
 						'unit': unit,
 						'val_min': val_min,
-						'val_med': [
-							String(parseFloat(val_min)+.25*(parseFloat(val_max)-parseFloat(val_min))),
-							String(parseFloat(val_min)+.50*(parseFloat(val_max)-parseFloat(val_min))), //yes, it's (val_max+val_min)/2, but it looks better ^^
-							String(parseFloat(val_min)+.75*(parseFloat(val_max)-parseFloat(val_min)))
-						],
+						'val_med': calcMed(val_min, ref_point, val_max),
 						'val_max': val_max,
 						'ref_point': ref_point,
 						'method': method,
@@ -485,6 +489,11 @@ $(function() {
 							'utility': {}
 						}
 					};
+					if (ref_point != val_max) {
+						attribute.val_med_losses = calcMed(ref_point, val_max);
+					}
+					assess_session.attributes[edited_attribute]=attribute;
+					
 				}	
 				edit_mode=false;
 				$('#add_attribute h2').text("Add a new attribute");
