@@ -1,4 +1,5 @@
 %include('header_init.tpl', heading='Manage your attributes')
+%include('js.tpl')
 
 <h2>List of current attributes:</h2>
 <table class="table">
@@ -62,25 +63,27 @@
 			<label><input name="mode" type="checkbox" id="att_mode_quanti" placeholder="Mode"> The min value is preferred (decreasing utility function)</label>
 		</div>
 		<div class="checkbox">
-			<label><input name="mode" type="checkbox" id="att_mode_ref" placeholder="Mode" onclick="showhide()"> Would you like to choose a reference point? (between Min and Max)</label>
+			<label><input name="mode" type="checkbox" id="att_mode_ref" placeholder="Mode"> Would you like to choose a reference point? (between Min and Max)</label>
 		</div>
-		<div class="form-group">
+		<div class="form-group hidden" id="ref_point_group">
 			<label for="att_ref_point_quanti">Reference point:</label>
 			<input type="text" class="form-control" id="att_ref_point_quanti" placeholder="Value">
-			
 		</div>
 		
 		<button type="submit" class="btn btn-success" id="submit_quanti">Submit</button>
-		
 	</div>
 	<script>
-	fucntion showhide() {
-		if(document.getElementById('att_mode_ref').checked) {
-			document.getElementById('att_ref_point_quanti').style.display='block';
-		
-			} else {document.getElementById('att_ref_point_quanti').style.display='none';
-				}
-				}
+		box = $("#att_mode_ref");
+		ref_group = $("#ref_point_group");
+		function sync () {
+			if (box.is(':checked')) {
+				ref_group.removeClass('hidden');
+			} else {
+				ref_group.addClass('hidden');
+			}
+		}
+		box.click(sync);
+		sync();
 	</script>
 	
 	<!------------ FORM FOR A QUALITATIVE ATTRIBUTE ------------>

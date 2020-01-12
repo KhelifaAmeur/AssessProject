@@ -89,6 +89,7 @@
 			if (attribute.type=="Quantitative") {
 				if (attribute.questionnaire.number > 0) {
 					text_table += '<td><button type="button" class="btn btn-default btn-xs calc_util_quanti" id="u_' + attribute.name + '">Utility function</button></td>';
+				// ICI pour utility function
 				} else {
 					text_table += '<td>No assessment yet</td>';
 				};
