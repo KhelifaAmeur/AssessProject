@@ -403,7 +403,7 @@ $(function() {
 			ref_point = parseInt($('#att_ref_point_quanti').val()),
 			val_max = parseInt($('#att_value_max_quanti').val());
 		if (!ref_point) {
-			ref_point = val_min;
+			ref_point = val_max;
 		}
 
 		var method = "PE";

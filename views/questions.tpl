@@ -87,9 +87,13 @@
 			text_table += '<tr><td>' + attribute.val_max + '</td><td> : </td><td>'+(attribute.mode=="Normal"?1:0)+'</td></tr></table></td>';
 
 			if (attribute.type=="Quantitative") {
-				if (attribute.questionnaire.number > 0) {
-					text_table += '<td><button type="button" class="btn btn-default btn-xs calc_util_quanti" id="u_' + attribute.name + '">Utility function</button></td>';
-				// ICI pour utility function
+				if (attribute.questionnaire.number) {
+					text_table += '<td><button type="button" class="btn btn-default btn-xs calc_util_quanti" id="u_0_' + attribute.name + '">Utility function</button>';
+					if (attribute.ref_point != attribute.val_max) {
+						text_table += '<button type="button" class="btn btn-default btn-xs calc_util_quanti" id="u_1_' + attribute.name + '">Utility function 2</button>';
+					}
+					text_table += '</td>'
+						// ICI pour utility function
 				} else {
 					text_table += '<td>No assessment yet</td>';
 				};
@@ -725,8 +729,9 @@
 		///////////////////////////////////////////////////////////////// CLICK ON THE UTILITY BUTTON ////////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		$('.calc_util_quanti').click(function() {
+			var graph_type = $(this).attr('id')[2];
 			// we store the name of the attribute
-			var name = $(this).attr('id').slice(2);
+			var name = $(this).attr('id').slice(4);
 			console.log(name);
 			// we hide the slect div
 			$('#select').hide();
@@ -740,10 +745,14 @@
 			}
 
 			console.log('assess_session.attributes[indice]', assess_session.attributes[indice]);
-			var val_min = assess_session.attributes[indice].val_min,
-				val_max = assess_session.attributes[indice].val_max,
-				ref_point = assess_session.attributes[indice].ref_point,
-				mode = assess_session.attributes[indice].mode,
+			if (graph_type == '0') {
+				var val_min = assess_session.attributes[indice].val_min,
+					val_max = assess_session.attributes[indice].ref_point;
+			} else {
+				var val_min = assess_session.attributes[indice].ref_point,
+					val_max = assess_session.attributes[indice].val_max;
+			}
+			var mode = assess_session.attributes[indice].mode,
 				points_dict = assess_session.attributes[indice].questionnaire.points,
 				points=[];
 			
@@ -759,8 +768,6 @@
 			};
 			json_2_send["points"] = points;
 			console.log(points);
-
-
 
 			function reduce_signe(nombre, dpl=true, signe=true) {
 				console.log("Reduce signe");
@@ -934,10 +941,7 @@
 				$('.radio_choice').on('click', function() {
 					$('#main_graph').show().empty();
 					$('#functions').show().empty();
-					if (ref_point > val_min) {
-						addGraph(Number(this.value), data['data'], val_min, ref_point);
-					}
-					addGraph(Number(this.value), data['data'], ref_point, val_max);
+					addGraph(Number(this.value), data['data'], val_min, val_max);
 					addFunctions(Number(this.value), data['data']);
 				});
 			});
