@@ -400,11 +400,17 @@ $(function() {
 		var name = $('#att_name_quanti').val(),
 			unit = $('#att_unit_quanti').val(),
 			val_min = parseInt($('#att_value_min_quanti').val()),
-			ref_point = parseInt($('#att_ref_point_quanti').val()),
 			val_max = parseInt($('#att_value_max_quanti').val());
-		if (ref_point === undefined) {
+
+		var ref_point;
+		if ($('#att_mode_ref').is(':checked')) {
+			ref_point = parseInt($('#att_ref_point_quanti').val());
+			if (isNaN(ref_point)) {
+				alert('Please uncheck the box or define a valid reference point');
+				return;
+			}
+		} else {
 			ref_point = val_max;
-		
 		}
 
 		var method = "PE";
