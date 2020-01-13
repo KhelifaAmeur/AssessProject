@@ -100,12 +100,9 @@
 
 			if (attribute.type=="Quantitative") {
 				if (attribute.questionnaire.number) {
-					
+					text_table += '<td><button type="button" class="btn btn-default btn-xs calc_util_quanti" id="u_0_' + attribute.name + '"> utility function </button>';
 					if (attribute.ref_point != attribute.val_max) {
-						text_table += '<button type="button" class="btn btn-default btn-xs calc_util_quanti" id="u_1_' + attribute.name + '"> Gains Utility Function</button>';
-						text_table += '<button type="button" class="btn btn-default btn-xs calc_util_quanti" id="u_0_' + attribute.name + '"> Losses Utility Function</button>';
-					} else if (attribute.ref_point == attribute.val_max){
-					text_table += '<td><button type="button" class="btn btn-default btn-xs calc_util_quanti" id="u_0_' + attribute.name + '"> Gains Utility Function</button>';
+						text_table += '<button type="button" class="btn btn-default btn-xs calc_util_quanti" id="u_1_' + attribute.name + '">utility function 2</button>';
 					}
 					text_table += '</td>'
 						// ICI pour utility function
