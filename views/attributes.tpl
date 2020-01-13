@@ -430,18 +430,18 @@ $(function() {
 			return val_med;
 		}
 		
-		if (!(name || unit || val_min || val_max) || isNaN(ref_point) || isNaN(val_min) || isNaN(val_max)) {
+		if (!(name || unit || val_min || val_max) || isNaN(val_min) || isNaN(val_max)) {
 			alert('Please fill correctly all the fields');
 		} else if (isAttribute(name) && (edit_mode == false)) {
 			alert ("An attribute with the same name already exists");
 		} else if (val_min > val_max) {
 			alert ("Minimum value must be inferior to maximum value");
 		} else if (ref_point > val_max) {
-			alert ("Please choose the maximum value the same as your Reference Point ");
+			alert ("Please choose the Reference Point between Min and Max ");
 		//} else if ((ref_point < val_max) && (ref_point > val_min)) {
 		//	alert ("If you want to assess losses please choose the maximum value as the Reference point. If you want to assess gains please choose the minimum value as the Reference point.");
 		} else if (ref_point < val_min) {
-			alert ("Please choose the minimum value the same as your Reference Point ");
+			alert ("Please choose the Reference Point between Min and Max ");
 		} else if (isThereUnderscore([name, unit], String(val_min), String(val_max))==false) {
 			alert("Please don't write an underscore ( _ ) in your values.\nBut you can put spaces");
 		}
