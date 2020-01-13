@@ -101,7 +101,7 @@
 			if (attribute.type=="Quantitative") {
 				if (attribute.questionnaire.number) {
 					text_table += '<td><button type="button" class="btn btn-default btn-xs calc_util_quanti" id="u_0_' + attribute.name + '">Gains utility function</button>';
-					if (attribute.ref_point != attribute.val_max) {
+					if (attribute.ref_point != attribute.val_max || attribute.ref_point == 0 ) {
 						text_table += '<button type="button" class="btn btn-default btn-xs calc_util_quanti" id="u_1_' + attribute.name + '">Losses utility function</button>';
 					}
 					text_table += '</td>'
