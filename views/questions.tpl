@@ -72,7 +72,7 @@
 						text_table += '<td><button type="button" class="btn btn-default btn-xs answer_quest_'+(attribute.type=="Qualitative"?"quali":"quanti")+'" id="q_' + attribute.name + '_' + attribute.val_med[ii] + '_' + ii + '">Assess</button>' + '</td></tr>';
 					};
 				};
-				if (attribute.ref_point != attribute.val_max) {
+				if (attribute.ref_point != attribute.val_max || attribute.ref_point == 0 ) {
 					text_table += '<tr><td>' + attribute.ref_point + '</td><td> : </td><td>'+(attribute.mode=="Normal"?'1 -> 0':'0 -> 1')+'</td></tr>';
 					for (var ii=0, len=attribute.val_med_losses.length; ii<len; ii++){
 						text_table += '<tr><td>' + attribute.val_med_losses[ii] + '</td><td> : </td>';
