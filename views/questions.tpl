@@ -72,7 +72,7 @@
 						text_table += '<td><button type="button" class="btn btn-default btn-xs answer_quest_'+(attribute.type=="Qualitative"?"quali":"quanti")+'" id="q_' + attribute.name + '_' + attribute.val_med[ii] + '_' + ii + '">Assess</button>' + '</td></tr>';
 					};
 				};
-				if (attribute.ref_point != attribute.val_max) {
+				if (attribute.ref_point != attribute.val_max ) {
 					text_table += '<tr><td>' + attribute.ref_point + '</td><td> : </td><td>'+(attribute.mode=="Normal"?'1 -> 0':'0 -> 1')+'</td></tr>';
 					for (var ii=0, len=attribute.val_med_losses.length; ii<len; ii++){
 						text_table += '<tr><td>' + attribute.val_med_losses[ii] + '</td><td> : </td>';
@@ -100,9 +100,12 @@
 
 			if (attribute.type=="Quantitative") {
 				if (attribute.questionnaire.number) {
-					text_table += '<td><button type="button" class="btn btn-default btn-xs calc_util_quanti" id="u_0_' + attribute.name + '">Gains utility function</button>';
+					
 					if (attribute.ref_point != attribute.val_max) {
-						text_table += '<button type="button" class="btn btn-default btn-xs calc_util_quanti" id="u_1_' + attribute.name + '">Losses utility function</button>';
+												
+						text_table += '<td><button type="button" class="btn btn-default btn-xs calc_util_quanti" id="u_0_' + attribute.name + '"> Losses Utility Function </button>';
+						text_table += '<button type="button" class="btn btn-default btn-xs calc_util_quanti" id="u_1_' + attribute.name + '"> Gains Utility Function </button>';
+					} else { text_table += '<td><button type="button" class="btn btn-default btn-xs calc_util_quanti" id="u_0_' + attribute.name + '"> Gains Utility Function </button>';
 					}
 					text_table += '</td>'
 						// ICI pour utility function

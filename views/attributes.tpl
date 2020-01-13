@@ -404,6 +404,7 @@ $(function() {
 			val_max = parseInt($('#att_value_max_quanti').val());
 		if (ref_point === undefined) {
 			ref_point = val_max;
+		
 		}
 
 		var method = "PE";
@@ -465,7 +466,7 @@ $(function() {
 						'utility': {}
 					}
 				};
-				if (ref_point != val_max) {
+				if (ref_point != val_max ) {
 					attribute.val_med_losses = calcMed(ref_point, val_max);
 				}
 				assess_session.attributes.push(attribute);
@@ -489,7 +490,7 @@ $(function() {
 							'utility': {}
 						}
 					};
-					if (ref_point != val_max) {
+					if (ref_point != val_max ) {
 						attribute.val_med_losses = calcMed(ref_point, val_max);
 					}
 					assess_session.attributes[edited_attribute]=attribute;
