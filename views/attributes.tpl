@@ -430,7 +430,7 @@ $(function() {
 			return val_med;
 		}
 		
-		if (!(name || unit || ref_point || val_min || val_max) || isNaN(ref_point) || isNaN(val_min) || isNaN(val_max)) {
+		if (!(name || unit  || val_min || val_max) || isNaN(val_min) || isNaN(val_max)) {
 			alert('Please fill correctly all the fields');
 		} else if (isAttribute(name) && (edit_mode == false)) {
 			alert ("An attribute with the same name already exists");
