@@ -404,8 +404,7 @@ $(function() {
 			val_max = parseInt($('#att_value_max_quanti').val());
 		if (!ref_point) {
 			ref_point = val_max;
-		}else if (ref_point==0) {
-			ref_point != val_max;
+		
 		}
 
 		var method = "PE";
