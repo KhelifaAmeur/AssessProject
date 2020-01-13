@@ -466,7 +466,7 @@ $(function() {
 						'utility': {}
 					}
 				};
-				if (ref_point != val_max ) {
+				if (ref_point === undefined) {
 					attribute.val_med_losses = calcMed(ref_point, val_max);
 				}
 				assess_session.attributes.push(attribute);
