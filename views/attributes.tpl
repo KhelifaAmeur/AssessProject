@@ -466,7 +466,7 @@ $(function() {
 						'utility': {}
 					}
 				};
-				if (ref_point != val_max || ref_point == 0 ) {
+				if (ref_point != val_max ) {
 					attribute.val_med_losses = calcMed(ref_point, val_max);
 				}
 				assess_session.attributes.push(attribute);
@@ -490,7 +490,7 @@ $(function() {
 							'utility': {}
 						}
 					};
-					if (ref_point != val_max || ref_point == 0 ) {
+					if (ref_point != val_max ) {
 						attribute.val_med_losses = calcMed(ref_point, val_max);
 					}
 					assess_session.attributes[edited_attribute]=attribute;
