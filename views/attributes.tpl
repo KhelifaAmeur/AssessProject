@@ -402,7 +402,7 @@ $(function() {
 			val_min = parseInt($('#att_value_min_quanti').val()),
 			ref_point = parseInt($('#att_ref_point_quanti').val()),
 			val_max = parseInt($('#att_value_max_quanti').val());
-		if (!ref_point) {
+		if (ref_point === undefined) {
 			ref_point = val_max;
 		}
 
