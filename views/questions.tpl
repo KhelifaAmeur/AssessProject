@@ -200,8 +200,8 @@
 					
 					// SETUP ARBRE GAUCHE
 					arbre_pe.questions_proba_haut = probability;
-					arbre_pe.questions_val_max = (mode=="Normal"? val_max : val_min) + ' ' + unit;
-					arbre_pe.questions_val_min = (mode=="Normal"? val_min : val_max) + ' ' + unit;
+					arbre_pe.questions_val_max = (mode=="Normal"? ref_point : val_min) + ' ' + unit;
+					arbre_pe.questions_val_min = (mode=="Normal"? val_min : ref_point) + ' ' + unit;
 					arbre_pe.questions_val_mean = gain_certain + ' ' + unit;
 					
 					arbre_pe.display();
