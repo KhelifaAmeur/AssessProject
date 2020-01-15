@@ -6,7 +6,6 @@
     <li>Julien Blanchard</li>
     <li>Melek Ben Kedher</li>
     <li>François Bracchi</li>
-    <li>Amine Bouattour</li>
     <li>Romain Casabianca</li>
     <li>Thibaut Charraire</li>
     <li>Charles Chastel</li>
@@ -21,7 +20,6 @@
     <li>Martin Gouy</li>
     <li>Mateusz Jasinski</li>
     <li>Chen Jianqiang</li>
-    <li>Mohamed Ameur Khelifa</li>
     <li>Nicolas Mardrus</li>
     <li>Baptiste Mathae</li>
     <li>Ramana Mozhichelvan</li>
