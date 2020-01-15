@@ -168,9 +168,15 @@
 				}
 			}
 
-			var val_min = assess_session.attributes[indice].val_min,
-				val_max = assess_session.attributes[indice].val_max,
-				unit = assess_session.attributes[indice].unit,
+			var val_min, val_max;
+			if (parseFloat(question_val) < assess_session.attributes[indice].ref_point) {
+				val_min = assess_session.attributes[indice].val_min;
+				val_max = assess_session.attributes[indice].ref_point;
+			} else {
+				val_min = assess_session.attributes[indice].ref_point;
+				val_max = assess_session.attributes[indice].val_max;
+			}
+			var unit = assess_session.attributes[indice].unit,
 				method = assess_session.attributes[indice].method,
 				mode = assess_session.attributes[indice].mode;
 
