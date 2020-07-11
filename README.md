@@ -204,10 +204,10 @@ color:#1155CC'>https://github.com/leosayous21/asses</span></a><o:p></o:p></span>
 <p class=MsoNormal style='text-indent:36.0pt'><span style='font-size:11.5pt;
 font-family:Arial;mso-bidi-font-family:"Times New Roman";color:black'>Aller sur</span><span
 style='font-size:10.0pt;font-family:Times;mso-bidi-font-family:"Times New Roman"'><a
-href="https://assess2.herokuapp.com/"><span style='font-size:11.5pt;font-family:
+href="https://assesspjt.herokuapp.com/"><span style='font-size:11.5pt;font-family:
 Arial;mso-bidi-font-family:"Times New Roman";color:black'> </span><span
 style='font-size:11.5pt;font-family:Arial;mso-bidi-font-family:"Times New Roman";
-color:#1155CC'>https://assess2.herokuapp.com/</span></a></span><span
+color:#1155CC'>https://assesspjt.herokuapp.com/</span></a></span><span
 style='font-size:11.5pt;font-family:Arial;mso-bidi-font-family:"Times New Roman";
 color:black'> pour voir le rendu du projet</span><span style='font-size:10.0pt;
 font-family:Times;mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
@@ -239,7 +239,7 @@ font-family:Times;mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></spa
  <li class=MsoNormal style='color:black;mso-list:l0 level1 lfo15;tab-stops:
      list 36.0pt;vertical-align:baseline'><span style='font-size:11.5pt;
      font-family:Arial;mso-bidi-font-family:"Times New Roman"'>Sur <span
-     class=SpellE>heroku</span> http://assess2.herokuapp.com<o:p></o:p></span></li>
+     class=SpellE>heroku</span>https://assesspjt.herokuapp.com/<o:p></o:p></span></li>
 </ul>
 
 <p class=MsoNormal><span style='font-size:11.5pt;font-family:Arial;mso-fareast-font-family:
@@ -397,13 +397,13 @@ style='font-size:10.0pt;font-family:Times;mso-bidi-font-family:"Times New Roman"
 qui sont appelées par website.py lorsque l’on fait une <span class=SpellE>requète</span>
 du style &nbsp;</span><span style='font-size:10.0pt;font-family:Times;
 mso-bidi-font-family:"Times New Roman"'><a
-href="http://assess2.herokuapp.com/questions"><span style='font-size:11.5pt;
-font-family:Arial;mso-bidi-font-family:"Times New Roman";color:#1155CC'>http://assess2.herokuapp.com/questions</span></a></span><span
+href="https://assesspjt.herokuapp.com/"<span style='font-size:11.5pt;
+font-family:Arial;mso-bidi-font-family:"Times New Roman";color:#1155CC'>https://assesspjt.herokuapp.com/</span></a></span><span
 style='font-size:11.5pt;font-family:Arial;mso-bidi-font-family:"Times New Roman";
 color:black'> ou </span><span style='font-size:10.0pt;font-family:Times;
 mso-bidi-font-family:"Times New Roman"'><a
-href="http://assess2.herokuapp.com/exports"><span style='font-size:11.5pt;
-font-family:Arial;mso-bidi-font-family:"Times New Roman";color:#1155CC'>http://assess2.herokuapp.com/exports</span></a></span><span
+href="https://assesspjt.herokuapp.com/"><span style='font-size:11.5pt;
+font-family:Arial;mso-bidi-font-family:"Times New Roman";color:#1155CC'>https://assesspjt.herokuapp.com/</span></a></span><span
 style='font-size:11.5pt;font-family:Arial;mso-bidi-font-family:"Times New Roman";
 color:black'> </span><span style='font-size:10.0pt;font-family:Times;
 mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
