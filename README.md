@@ -194,7 +194,7 @@ font-family:Arial;mso-bidi-font-family:"Times New Roman";color:#1155CC'>https://
 
 <p class=MsoNormal style='text-indent:36.0pt'><span style='font-size:11.5pt;
 font-family:Arial;mso-bidi-font-family:"Times New Roman";color:black'>Travail
-MAJ par le groupe du semestre 2 2015</span><span style='font-size:10.0pt;
+MAJ 2020</span><span style='font-size:10.0pt;
 font-family:Times;mso-bidi-font-family:"Times New Roman"'><a
 href="https://github.com/leosayous21/asses"><span style='font-size:11.5pt;
 font-family:Arial;mso-bidi-font-family:"Times New Roman";color:black'> </span><span
