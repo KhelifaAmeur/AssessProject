@@ -199,7 +199,7 @@ font-family:Times;mso-bidi-font-family:"Times New Roman"'><a
 href="https://assesspjt.herokuapp.com/"><span style='font-size:11.5pt;
 font-family:Arial;mso-bidi-font-family:"Times New Roman";color:black'> </span><span
 style='font-size:11.5pt;font-family:Arial;mso-bidi-font-family:"Times New Roman";
-color:#1155CC'>https://github.com/leosayous21/asses</span></a><o:p></o:p></span></p>
+color:#1155CC'>https://assesspjt.herokuapp.com/</span></a><o:p></o:p></span></p>
 
 <p class=MsoNormal style='text-indent:36.0pt'><span style='font-size:11.5pt;
 font-family:Arial;mso-bidi-font-family:"Times New Roman";color:black'>Aller sur</span><span
